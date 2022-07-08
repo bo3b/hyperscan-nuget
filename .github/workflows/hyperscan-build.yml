@@ -28,14 +28,14 @@ jobs:
         uses: cygwin/cygwin-install-action@v2
         with:
           platform: x64
-          packages: make gcc
+          packages: make gcc-core
       
       # The cygwin.bat will run out of powershell, and then bash commands work
       - name: Setup build using bash in cygwin
         run: |
           pwd
           dir
-          c:\cywgin64\cygwin.bat
+          & "c:\cywgin64\cygwin.bat"
           ls -la
           7z l boost_1_79_0.7z
           7z x ragel-6.10.tar.gz
