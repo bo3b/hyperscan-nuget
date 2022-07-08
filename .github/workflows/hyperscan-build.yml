@@ -21,8 +21,8 @@ jobs:
 
       - name: Checkout w/ submodules and autocrlf
         uses: actions/checkout@v3
-#        with:
- #         submodules: true
+        with:
+          submodules: true
 
       # Setup the dependencies for building.
       - name: Setup build using bash in cygwin
@@ -39,6 +39,9 @@ jobs:
           echo -- 7 unzip ragel --
           7z x ragel-6.10.tar.gz
           7z x ragel-6.10.tar
+          7z x -o hyperscan/ pcre-8.45.zip 
+          7z x -o hyperscan/ sqlite-amalgamation-3390000.zip
+          7z x -o hyperscan/ boost_1_79_0.7z
           echo -- show dir --
           dir
           echo -- show ragel dir --
@@ -50,7 +53,6 @@ jobs:
           platform: x64
           packages: make gcc-core
       
-      # The cygwin.bat will run out of cmd, and then bash commands work
       # Alternatively, you can set Cygwin's bash as the shell to use:
       - name: Run cygwin bash shell
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
@@ -58,17 +60,26 @@ jobs:
           # This is a real bash script!
           echo -- printenv
           printenv
-          echo -- env.GITHUB_WORKSPACE
+          echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
-          basic() {
-              ls -Al
-              pwd
-          }
-          basic
+          echo -- ls directory
+          ls -la
           echo -- cd ragel
           cd ragel-6.10
+          echo -- ./configure
           ./configure
+          echo -- make ragel
           make
           make install
-          
+          echo -- ls result
+          ls -la
+          echo -- call ragel
+          ragel
+          echo -- cd hyperscan
+          cd hyperscan
+          echo -- mkdir build
+          mkdir build
+          echo -- test cmake -G
+          CMake -G 
+
