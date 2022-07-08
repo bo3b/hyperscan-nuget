@@ -74,12 +74,13 @@ jobs:
           make install
           echo -- ls result
           ls -la
-          echo -- call ragel
-          ragel
           echo -- cd hyperscan
           cd hyperscan
           echo -- mkdir build
           mkdir build
           echo -- test cmake -G
-          CMake -G 
+          CMake -G
+          echo -- ls directory
+          ls -la
+          
 
