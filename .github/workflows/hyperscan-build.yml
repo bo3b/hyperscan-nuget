@@ -21,8 +21,8 @@ jobs:
 
       - name: Checkout w/ submodules and autocrlf
         uses: actions/checkout@v3
-        with:
-          submodules: true
+#        with:
+ #         submodules: true
 
 #      - name: Install Cygwin Action
 #        uses: cygwin/cygwin-install-action@v2
@@ -30,16 +30,18 @@ jobs:
 #          platform: x64
 #          packages: make gcc-core
       
-      # The cygwin.bat will run out of powershell, and then bash commands work
+      # The cygwin.bat will run out of cmd, and then bash commands work
       - name: Setup build using bash in cygwin
-        shell: pwsh
+        shell: cmd
         run: |
-          date
+          echo --working dir--
           pwd
-          date
+          echo -- show dir --
           dir
-          7z x -ax ragel-6.10.tar.gz
-          date
+          echo -- 7 unzip ragel --
+          7z x ragel-6.10.tar.gz
+          7z x ragel-6.10.tar
+          echo -- show dir --
           dir
+          echo -- show ragel dir --
           dir ragel-6.10
-          dir hyperscan
