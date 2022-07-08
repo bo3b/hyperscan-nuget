@@ -39,13 +39,18 @@ jobs:
           echo -- 7 unzip ragel --
           7z x ragel-6.10.tar.gz
           7z x ragel-6.10.tar
-          7z x -o hyperscan/ pcre-8.45.zip 
-          7z x -o hyperscan/ sqlite-amalgamation-3390000.zip
-          7z x -o hyperscan/ boost_1_79_0.7z
+          7z x pcre-8.45.zip 
+          # Force rename to pcre-8.41 otherwise build will error out
+          move pcre-8.45 hyperscan\pcre-8.41
+          7z x sqlite-amalgamation-3390000.zip
+          move sqlite-amalgamation-3390000 hyperscan\sqlite3
+          7z x -ohyperscan/ boost_1_79_0.7z
           echo -- show dir --
           dir
           echo -- show ragel dir --
           dir ragel-6.10
+          echo -- show hyperscan dir --
+          dir hyperscan
 
       - name: Install Cygwin Action
         uses: egor-tensin/setup-cygwin@v3
@@ -73,14 +78,23 @@ jobs:
           make
           make install
           echo -- ls result
+          pwd
           ls -la
-          echo -- cd hyperscan
+          echo -- Start hyperscan config
+          echo -- cd ../hyperscan
           cd ../hyperscan
           echo -- mkdir build
           mkdir build
-          echo -- test cmake -G
-          CMake -G
+          pwd
+          ls -la
+          echo -- cmake -G "Visual Studio 16 2019"
+          CMake -G "Visual Studio 16 2019" -D BOOST_ROOT=./boost_1_79_0/
           echo -- ls directory
           ls -la
-          
-
+          echo -- msbuild the ALL_BUILD.vcxproj
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/16.0/Bin/"
+          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/16.0/Bin/"
+          MsBuild.exe ALL_BUILD.vcxproj /t:build
+          echo -- Output results
+          ls -la
+          ls -la bin
