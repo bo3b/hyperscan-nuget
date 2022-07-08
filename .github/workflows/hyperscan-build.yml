@@ -37,4 +37,5 @@ jobs:
           pwd
           dir
           ls
-          
+          7z l boost_1_79_0.7z
+          7z x ragel-6.10.tar.gz
