@@ -35,7 +35,7 @@ jobs:
         run: |
           pwd
           dir
-          c:\cygwin64\cygwin.bat
+          c:\cygwin\cygwin.bat
           ls -la
           7z l boost_1_79_0.7z
           7z x ragel-6.10.tar.gz
