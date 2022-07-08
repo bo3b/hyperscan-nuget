@@ -31,7 +31,9 @@ jobs:
           echo -- pwd working dir --
           pwd
           echo -- env.GITHUB_WORKSPACE --
-          echo ${{ env.GITHUB_WORKSPACE }}
+          echo %env.GITHUB_WORKSPACE%
+          echo -- all Set --
+          set
           echo -- show dir --
           dir
           echo -- 7 unzip ragel --
@@ -54,12 +56,17 @@ jobs:
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
-          cd ${{ env.GITHUB_WORKSPACE }}
+          echo -- printenv
+          printenv
+          echo -- env.GITHUB_WORKSPACE
+          echo $env.GITHUB_WORKSPACE
+          cd $env.GITHUB_WORKSPACE
           basic() {
               ls -Al
               pwd
           }
           basic
+          echo -- cd ragel
           cd ragel-6.10
           ./configure
           make
