@@ -75,7 +75,7 @@ jobs:
           echo -- ls result
           ls -la
           echo -- cd hyperscan
-          cd hyperscan
+          cd ../hyperscan
           echo -- mkdir build
           mkdir build
           echo -- test cmake -G
