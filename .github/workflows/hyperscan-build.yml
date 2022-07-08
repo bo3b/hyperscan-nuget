@@ -30,6 +30,8 @@ jobs:
         run: |
           echo -- pwd working dir --
           pwd
+          echo -- env.GITHUB_WORKSPACE --
+          echo ${{ env.GITHUB_WORKSPACE }}
           echo -- show dir --
           dir
           echo -- 7 unzip ragel --
@@ -52,12 +54,13 @@ jobs:
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
-          cd ~/ragel-6.10
+          cd ${{ env.GITHUB_WORKSPACE }}
           basic() {
               ls -Al
               pwd
           }
           basic
+          cd ragel-6.10
           ./configure
           make
           make install
