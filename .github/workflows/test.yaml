@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: hyperscan-build
+name: test-paths
 
 # Controls when the workflow will run
 on:
@@ -35,12 +35,19 @@ jobs:
           ls -la
           echo -- msbuild the ALL_BUILD.vcxproj
           ls "/cygdrive/c/"
+          echo -- x86
           ls "/cygdrive/c/Program Files (x86)/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/"
+          echo --
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
           export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
           printenv
