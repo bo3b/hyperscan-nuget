@@ -24,28 +24,17 @@ jobs:
         with:
           submodules: true
 
-      - name: Install Cygwin Action
-        uses: cygwin/cygwin-install-action@v2
-        with:
-          platform: x64
-          packages: make gcc-core
+#      - name: Install Cygwin Action
+#        uses: cygwin/cygwin-install-action@v2
+#        with:
+#          platform: x64
+#          packages: make gcc-core
       
       # The cygwin.bat will run out of powershell, and then bash commands work
       - name: Setup build using bash in cygwin
+        shell: pwsh
         run: |
           pwd
           dir
-          c:\cygwin\cygwin.bat
-          ls -la
-          7z l boost_1_79_0.7z
-          7z x ragel-6.10.tar.gz
-          7z x -o hyperscan/ pcre-8.45.zip 
-          7z x -o hyperscan/ sqlite-amalgamation-3390000.zip
-          ls -la
-          cd ragel-6.10
-          ./configure
-          make
-          make install
-          cd hyperscan
-          mkdir build
-          CMake -G 
+          ls
+          
