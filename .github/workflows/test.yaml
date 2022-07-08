@@ -37,18 +37,19 @@ jobs:
           ls "/cygdrive/c/"
           echo -- x86
           ls "/cygdrive/c/Program Files (x86)/"
-          echo --
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/"
-          echo --
+          echo -- Microsoft Visual Studio
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/"cd C
+          echo -- 2019
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/"
-          echo --
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/"
-          echo --
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/"
-          echo --
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/"
-          echo --
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
-          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
+          echo -- Enterprise
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/"
+          echo -- MSBuild
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/"
+          echo -- MSBuild
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/"
+          echo -- MSBuild
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
+          echo -- Set PATH
+          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
           printenv
           
