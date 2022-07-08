@@ -38,7 +38,7 @@ jobs:
           echo -- x86
           ls "/cygdrive/c/Program Files (x86)/"
           echo -- Microsoft Visual Studio
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/"cd C
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/"
           echo -- 2019
           ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/"
           echo -- Enterprise
