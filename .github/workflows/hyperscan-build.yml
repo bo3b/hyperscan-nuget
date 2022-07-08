@@ -24,24 +24,40 @@ jobs:
 #        with:
  #         submodules: true
 
-#      - name: Install Cygwin Action
-#        uses: cygwin/cygwin-install-action@v2
-#        with:
-#          platform: x64
-#          packages: make gcc-core
-      
-      # The cygwin.bat will run out of cmd, and then bash commands work
+      # Setup the dependencies for building.
       - name: Setup build using bash in cygwin
         shell: cmd
         run: |
-          echo --working dir--
+          echo -- pwd working dir --
           pwd
+          
           echo -- show dir --
           dir
+          
           echo -- 7 unzip ragel --
           7z x ragel-6.10.tar.gz
           7z x ragel-6.10.tar
+          
           echo -- show dir --
           dir
+          
           echo -- show ragel dir --
           dir ragel-6.10
+
+      - name: Install Cygwin Action
+        uses: cygwin/cygwin-install-action@v2
+        with:
+          platform: x64
+          packages: make gcc-core
+      
+      # The cygwin.bat will run out of cmd, and then bash commands work
+      # Alternatively, you can set Cygwin's bash as the shell to use:
+      - name: Run cygwin bash shell
+        run: |
+          # This is a real bash script!
+          basic() {
+              ls -Al
+              pwd
+          }
+          basic
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
