@@ -32,15 +32,13 @@ jobs:
           pwd
           echo -- env.GITHUB_WORKSPACE --
           echo %GITHUB_WORKSPACE%
-          echo -- all Set --
-          set
           echo -- show dir --
           dir
           echo -- 7 unzip ragel --
           7z x ragel-6.10.tar.gz
           7z x ragel-6.10.tar
           7z x pcre-8.45.zip 
-          # Force rename to pcre-8.41 otherwise build will error out
+          echo -- Force rename to pcre-8.41 on move otherwise build will error out
           move pcre-8.45 hyperscan\pcre-8.41
           7z x sqlite-amalgamation-3390000.zip
           move sqlite-amalgamation-3390000 hyperscan\sqlite3
@@ -63,8 +61,6 @@ jobs:
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
-          echo -- printenv
-          printenv
           echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
@@ -92,8 +88,8 @@ jobs:
           echo -- ls directory
           ls -la
           echo -- msbuild the ALL_BUILD.vcxproj
-          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/16.0/Bin/"
-          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/16.0/Bin/"
+          ls "/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
+          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/"
           MsBuild.exe ALL_BUILD.vcxproj /t:build
           echo -- Output results
           ls -la
