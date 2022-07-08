@@ -34,10 +34,12 @@ jobs:
       - name: Setup build using bash in cygwin
         shell: pwsh
         run: |
+          date
           pwd
+          date
           dir
-          ls
-          7z x ragel-6.10.tar.gz
+          7z x -ax ragel-6.10.tar.gz
+          date
           dir
           dir ragel-6.10
-          
+          dir hyperscan
