@@ -52,12 +52,12 @@ jobs:
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
+          cd ~/ragel-6.10
           basic() {
               ls -Al
               pwd
           }
           basic
-          cd ragel-6.10
           ./configure
           make
           make install
