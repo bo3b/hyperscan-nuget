@@ -30,19 +30,22 @@ jobs:
           platform: x64
           packages: make gcc
       
+      # The cygwin.bat will run out of powershell, and then bash commands work
       - name: Setup build using bash in cygwin
         run: |
           pwd
-          bash ls -la
-          bash 7z l boost_1_79_0.7z
-          bash 7z x ragel-6.10.tar.gz
-          bash 7z x -o hyperscan/ pcre-8.45.zip 
-          bash 7z x -o hyperscan/ sqlite-amalgamation-3390000.zip
-          bash ls -la
-          bash cd ragel-6.10
-          bash ./configure
-          bash make
-          bash make install
-          bash cd hyperscan
-          bash mkdir build
-          bash CMake -G 
+          dir
+          c:\cywgin64\cygwin.bat
+          ls -la
+          7z l boost_1_79_0.7z
+          7z x ragel-6.10.tar.gz
+          7z x -o hyperscan/ pcre-8.45.zip 
+          7z x -o hyperscan/ sqlite-amalgamation-3390000.zip
+          ls -la
+          cd ragel-6.10
+          ./configure
+          make
+          make install
+          cd hyperscan
+          mkdir build
+          CMake -G 
