@@ -30,22 +30,18 @@ jobs:
         run: |
           echo -- pwd working dir --
           pwd
-          
           echo -- show dir --
           dir
-          
           echo -- 7 unzip ragel --
           7z x ragel-6.10.tar.gz
           7z x ragel-6.10.tar
-          
           echo -- show dir --
           dir
-          
           echo -- show ragel dir --
           dir ragel-6.10
 
       - name: Install Cygwin Action
-        uses: cygwin/cygwin-install-action@v2
+        uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
           packages: make gcc-core
@@ -53,6 +49,7 @@ jobs:
       # The cygwin.bat will run out of cmd, and then bash commands work
       # Alternatively, you can set Cygwin's bash as the shell to use:
       - name: Run cygwin bash shell
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
           basic() {
@@ -60,4 +57,8 @@ jobs:
               pwd
           }
           basic
-        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+          cd ragel-6.10
+          ./configure
+          make
+          make install
+          
