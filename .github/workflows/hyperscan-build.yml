@@ -97,11 +97,11 @@ jobs:
           echo -
           MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -m
           echo -- Output results
-          ls -la bin
-          mv bin/chimera.lib ../output_libs/chimera64MT.lib
-          mv bin/hs_runtime.lib ../output_libs/hs_runtime64MT.lib
-          mv bin/hs.lib ../output_libs/hs64MT.lib
-          mv bin/pcre.lib ../output_libs/pcre64MT.lib
+          ls -la lib
+          mv lib/chimera.lib ../output_libs/chimera64MT.lib
+          mv lib/hs_runtime.lib ../output_libs/hs_runtime64MT.lib
+          mv lib/hs.lib ../output_libs/hs64MT.lib
+          mv lib/pcre.lib ../output_libs/pcre64MT.lib
           echo -
           echo -- CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
@@ -112,11 +112,11 @@ jobs:
           echo -
           MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -m
           echo -- Output results
-          ls -la bin
-          mv bin/chimera.lib ../output_libs/chimera32MT.lib
-          mv bin/hs_runtime.lib ../output_libs/hs_runtime32MT.lib
-          mv bin/hs.lib ../output_libs/hs32MT.lib
-          mv bin/pcre.lib ../output_libs/pcre32MT.lib
+          ls -la lib
+          mv lib/chimera.lib ../output_libs/chimera32MT.lib
+          mv lib/hs_runtime.lib ../output_libs/hs_runtime32MT.lib
+          mv lib/hs.lib ../output_libs/hs32MT.lib
+          mv lib/pcre.lib ../output_libs/pcre32MT.lib
           echo -
           echo -- Final Results
           echo -
@@ -129,7 +129,7 @@ jobs:
       - name: Upload output_libs 
         uses: actions/upload-artifact@v2
         with:
-          name: hyperscan v5.4.0
+          name: hyperscan_v5.4.0
           path: output_libs\
         
  
