@@ -93,9 +93,10 @@ jobs:
           echo -
           CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -m
+          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
           echo -
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -m
+          export _CL_=/MT
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 _CL_=/MT
           echo -- Output results
           ls -la lib
           mv lib/chimera.lib ../output_libs/chimera64MT.lib
@@ -103,20 +104,44 @@ jobs:
           mv lib/hs.lib ../output_libs/hs64MT.lib
           mv lib/pcre.lib ../output_libs/pcre64MT.lib
           echo -
+          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          echo -
+          export _CL_=/MTd
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 _CL_=/MTd
+          echo -- Output results
+          ls -la lib
+          mv lib/chimera.lib ../output_libs/chimera64MTd.lib
+          mv lib/hs_runtime.lib ../output_libs/hs_runtime64MTd.lib
+          mv lib/hs.lib ../output_libs/hs64MTd.lib
+          mv lib/pcre.lib ../output_libs/pcre64MTd.lib
+          echo -
           echo -- CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
           rm CMakeCache.txt
+          unset _CL_
           CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -m
+          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MT
           echo -
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -m
+          export _CL_=/MT
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
           echo -- Output results
           ls -la lib
           mv lib/chimera.lib ../output_libs/chimera32MT.lib
           mv lib/hs_runtime.lib ../output_libs/hs_runtime32MT.lib
           mv lib/hs.lib ../output_libs/hs32MT.lib
           mv lib/pcre.lib ../output_libs/pcre32MT.lib
+          echo -
+          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MTd
+          echo -
+          export _CL_=/MTd
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
+          echo -- Output results
+          ls -la lib
+          mv lib/chimera.lib ../output_libs/chimera32MTd.lib
+          mv lib/hs_runtime.lib ../output_libs/hs_runtime32MTd.lib
+          mv lib/hs.lib ../output_libs/hs32MTd.lib
+          mv lib/pcre.lib ../output_libs/pcre32MTd.lib
           echo -
           echo -- Final Results
           echo -
