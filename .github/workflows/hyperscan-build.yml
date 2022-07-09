@@ -89,9 +89,9 @@ jobs:
           pwd
           ls -la
           echo -
-          echo -- cmake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          echo -- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
-          CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          CMake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
           echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
           echo -
@@ -115,11 +115,11 @@ jobs:
           mv lib/hs.lib ../output_libs/hs64MTd.lib
           mv lib/pcre.lib ../output_libs/pcre64MTd.lib
           echo -
-          echo -- CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          echo -- CMake -G "Visual Studio 15 2017 Win32" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
           rm CMakeCache.txt
           unset _CL_
-          CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          CMake -G "Visual Studio 15 2017 Win32" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
           echo -
           echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MT
           echo -
