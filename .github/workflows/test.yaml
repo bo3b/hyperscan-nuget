@@ -3,7 +3,7 @@
 name: test-paths
 
 env:
-  UPLOAD_RESULTS: $GITHUB_WORKSPACE/upload_results
+  UPLOAD_RESULTS: ${{ GITHUB_WORKSPACE }}\upload_results
   
   
 # Controls when the workflow will run
@@ -38,7 +38,8 @@ jobs:
           echo -- ls directory
           ls -la
           echo -- output_results
-          echo ${{ env.UPLOAD_RESULTS }}
+          echo ${{ UPLOAD_RESULTS }}
+          echo $UPLOAD_RESULTS
           # Unpack 7zip properly?
           p7zip x ragel-6.10.tar.gz
           p7zip x ragel-6.10.tar
