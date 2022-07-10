@@ -2,6 +2,9 @@
 
 name: hyperscan-build
 
+env:
+  UPLOAD_RESULTS: $GITHUB_WORKSPACE\upload_results
+
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -24,67 +27,79 @@ jobs:
         with:
           submodules: true
 
-      # Setup the dependencies for building.
-      - name: Setup build using bash in cygwin
-        shell: cmd
-        run: |
-          echo -- pwd working dir --
-          pwd
-          echo -- env.GITHUB_WORKSPACE --
-          echo %GITHUB_WORKSPACE%
-          echo -- show dir --
-          dir
-          echo -- 7 unzip ragel --
-          7z x ragel-6.10.tar.gz
-          7z x ragel-6.10.tar
-          7z x pcre-8.45.zip 
-          echo -- Force rename to pcre-8.41 on move otherwise build will error out
-          move pcre-8.45 hyperscan\pcre-8.41
-          7z x sqlite-amalgamation-3390000.zip
-          move sqlite-amalgamation-3390000 hyperscan\sqlite3
-          7z x -ohyperscan/ boost_1_79_0.7z
-          echo -- show dir --
-          dir
-          echo -- show ragel dir --
-          dir ragel-6.10
-          echo -- show hyperscan dir --
-          dir hyperscan
-
       - name: Install Cygwin Action
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: make gcc-core
+          packages: make gcc-core p7zip
       
       # Alternatively, you can set Cygwin's bash as the shell to use:
       - name: Run cygwin bash shell
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
+          #############################################################
+          # Set up working variables, so we can avoid confusing relative paths.
           echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
-          mkdir upload_results
-          export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
+          mkdir $UPLOAD_RESULTS
           export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
+          export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
+          #############################################################
           echo -
-          echo -- Add PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
+          echo -- show root items --
           echo -
-          export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
+          ls -la
+          echo -
+          echo -- 7 unzip ragel --
+          echo -
+          p7zip x ragel-6.10.tar.gz
+          p7zip x ragel-6.10.tar
+          echo -
+          echo -- show ragel dir --
+          echo -
+          ls -la ragel-6.10/
+          p7zip x pcre-8.45.zip 
+          echo -
+          echo -- Force rename to pcre-8.41 on move otherwise build will error out
+          echo -
+          mv pcre-8.45 hyperscan/pcre-8.41
+          p7zip x sqlite-amalgamation-3390000.zip
+          mv sqlite-amalgamation-3390000 hyperscan/sqlite3
+          p7zip x -ohyperscan/ boost_1_79_0.7z
+          echo -
+          echo -- show hyperscan dir --
+          echo -
+          ls -la hyperscan/
+          #############################################################
+          # Only VS2019 Enterprise is available on the GitHub runner.
+          echo -
+          echo -- Add PATH:"$VS2019_MSBUILD"
+          echo -
+          export PATH=$PATH:"$VS2019_MSBUILD"
           echo -- ls directory
           ls -la
           cd $HYPERSCAN_ROOT
           pwd
           ls -la
           #############################################################
+          echo -
           echo -- cd ragel
+          echo -
           cd $GITHUB_WORKSPACE/ragel-6.10
+          echo -
           echo -- ./configure
+          echo -
           ./configure
+          echo -
           echo -- make then install ragel
+          echo -
           make
           make install
+          echo -
           echo -- ls result
+          echo -
           pwd
           ls -la
           #############################################################
@@ -112,7 +127,7 @@ jobs:
           echo -
           export _CL_=/MTd
           cd $HYPERSCAN_ROOT/build_x32
-          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MTd
           mv lib/* $UPLOAD_RESULTS/x32_MTd
@@ -126,7 +141,7 @@ jobs:
           echo ------
           export _CL_=/MT
           cd $HYPERSCAN_ROOT/build_x32
-          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MT
           mv lib/* $UPLOAD_RESULTS/x32_MT
@@ -140,7 +155,7 @@ jobs:
           echo ------
           export _CL_=/MTd
           cd $HYPERSCAN_ROOT/build_x64
-          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MTd
           mv lib/* $UPLOAD_RESULTS/x64_MTd
@@ -154,7 +169,7 @@ jobs:
           echo ------
           export _CL_=/MT
           cd $HYPERSCAN_ROOT/build_x64
-          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MT
           mv lib/* $UPLOAD_RESULTS/x64_MT
@@ -165,8 +180,7 @@ jobs:
           echo -
           echo -- Final Results
           echo -
-          cd $UPLOAD_RESULTS
-          ls -la x*
+          ls -la $UPLOAD_RESULTS/*
           
 # Now we can upload the output_libs artifacts as the final build.
 # Versioning?
