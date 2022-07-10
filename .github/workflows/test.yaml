@@ -3,7 +3,7 @@
 name: test-paths
 
 env:
-  UPLOAD_RESULTS: ${{ github.workspace/upload_results }}
+  UPLOAD_RESULTS: $GITHUB_WORKSPACE/upload_results
   
   
 # Controls when the workflow will run
