@@ -2,9 +2,6 @@
 
 name: test-paths
 
-env:
-  UPLOAD_RESULTS: ${{ GITHUB_WORKSPACE }}\upload_results
-  
   
 # Controls when the workflow will run
 on:
@@ -13,11 +10,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: windows-2019
 
+    env:
+      UPLOAD_RESULTS: ${{ GITHUB_WORKSPACE }}\upload_results
+  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
