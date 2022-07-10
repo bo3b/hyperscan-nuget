@@ -64,97 +64,113 @@ jobs:
           echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
+          mkdir upload_results
+          export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
+          export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
           echo -
           echo -- Add PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
           echo -
           export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
           echo -- ls directory
           ls -la
+          cd $HYPERSCAN_ROOT
+          pwd
+          ls -la
+          #############################################################
           echo -- cd ragel
-          cd ragel-6.10
+          cd $GITHUB_WORKSPACE/ragel-6.10
           echo -- ./configure
           ./configure
-          echo -- make ragel
+          echo -- make then install ragel
           make
           make install
           echo -- ls result
           pwd
           ls -la
-          echo -- Start hyperscan config
-          echo -- cd ../hyperscan
-          cd ../hyperscan
-          echo -- mkdir build
-          mkdir build
-          mkdir ../output_libs
-          pwd
-          ls -la
+          #############################################################
+          echo ------
+          echo    CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel
+          echo    This cmake builds the vcxproj and sln files for MinSizeRel Win32 settings.
+          echo ------
+          cd $HYPERSCAN_ROOT
+          mkdir build_x32
+          cd build_x32
+          CMake -G "Visual Studio 16 2019" -A Win32 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel ../
+          #############################################################
+          echo ------
+          echo    CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          echo    This cmake builds the vcxproj and sln files for MinSizeRel x64 settings.
+          echo ------
+          cd $HYPERSCAN_ROOT
+          mkdir build_x64
+          cd build_x64
+          CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          #############################################################
           echo -
-          echo -- cmake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
-          echo -
-          CMake -G "Visual Studio 15 2017 Win64" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
-          echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
-          echo -
-          export _CL_=/MT
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 _CL_=/MT
-          echo -- Output results
-          ls -la lib
-          mv lib/chimera.lib ../output_libs/chimera64MT.lib
-          mv lib/hs_runtime.lib ../output_libs/hs_runtime64MT.lib
-          mv lib/hs.lib ../output_libs/hs64MT.lib
-          mv lib/pcre.lib ../output_libs/pcre64MT.lib
-          echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          echo     msbuild the ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MTd
+          echo     msbuild the debug x86/Win32 with /MTd MinSizeRel
           echo -
           export _CL_=/MTd
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 _CL_=/MTd
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
           echo -- Output results
-          ls -la lib
-          mv lib/chimera.lib ../output_libs/chimera64MTd.lib
-          mv lib/hs_runtime.lib ../output_libs/hs_runtime64MTd.lib
-          mv lib/hs.lib ../output_libs/hs64MTd.lib
-          mv lib/pcre.lib ../output_libs/pcre64MTd.lib
-          echo -
-          echo -- CMake -G "Visual Studio 15 2017 Win32" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
-          echo -
-          rm CMakeCache.txt
-          unset _CL_
-          CMake -G "Visual Studio 15 2017 Win32" -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
-          echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MT
-          echo -
+          mkdir $UPLOAD_RESULTS/x32_MTd
+          mv lib/* $UPLOAD_RESULTS/x32_MTd
+          mv bin/* $UPLOAD_RESULTS/x32_MTd
+          echo $UPLOAD_RESULTS/x32_MTd
+          ls -la $UPLOAD_RESULTS/x32_MTd
+          #############################################################
+          echo ------
+          echo     msbuild the ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MT
+          echo     msbuild the nondebug x86/Win32 with /MT MinSizeRel
+          echo ------
           export _CL_=/MT
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
           echo -- Output results
-          ls -la lib
-          mv lib/chimera.lib ../output_libs/chimera32MT.lib
-          mv lib/hs_runtime.lib ../output_libs/hs_runtime32MT.lib
-          mv lib/hs.lib ../output_libs/hs32MT.lib
-          mv lib/pcre.lib ../output_libs/pcre32MT.lib
-          echo -
-          echo -- msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MTd
-          echo -
+          mkdir $UPLOAD_RESULTS/x32_MT
+          mv lib/* $UPLOAD_RESULTS/x32_MT
+          mv bin/* $UPLOAD_RESULTS/x32_MT
+          echo $UPLOAD_RESULTS/x32_MT
+          ls -la $UPLOAD_RESULTS/x32_MT
+          #############################################################
+          echo ------
+          echo     msbuild the ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          echo     msbuild the debug x64 with /MTd MinSizRel
+          echo ------
           export _CL_=/MTd
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
           echo -- Output results
-          ls -la lib
-          mv lib/chimera.lib ../output_libs/chimera32MTd.lib
-          mv lib/hs_runtime.lib ../output_libs/hs_runtime32MTd.lib
-          mv lib/hs.lib ../output_libs/hs32MTd.lib
-          mv lib/pcre.lib ../output_libs/pcre32MTd.lib
+          mkdir $UPLOAD_RESULTS/x64_MTd
+          mv lib/* $UPLOAD_RESULTS/x64_MTd
+          mv bin/* $UPLOAD_RESULTS/x64_MTd
+          echo $UPLOAD_RESULTS/x64_MTd
+          ls -la $UPLOAD_RESULTS/x64_MTd
+          #############################################################
+          echo ------
+          echo     msbuild the ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          echo     msbuild the nondebug x64 with /MT MinSizeRel
+          echo ------
+          export _CL_=/MT
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
+          echo -- Output results
+          mkdir $UPLOAD_RESULTS/x64_MT
+          mv lib/* $UPLOAD_RESULTS/x64_MT
+          mv bin/* $UPLOAD_RESULTS/x64_MT
+          echo $UPLOAD_RESULTS/x64_MT
+          ls -la $UPLOAD_RESULTS/x64_MT
+          #############################################################
           echo -
           echo -- Final Results
           echo -
-          cd ..
-          ls -la output_libs/
+          cd $UPLOAD_RESULTS
+          ls -la x*
           
 # Now we can upload the output_libs artifacts as the final build.
 # Versioning?
           
       - name: Upload output_libs 
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: hyperscan_v5.4.0
-          path: output_libs\
+          path: $UPLOAD_RESULTS
         
  
