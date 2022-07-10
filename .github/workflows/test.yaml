@@ -21,7 +21,7 @@ jobs:
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: make gcc-core
+          packages: make gcc-core p7zip
       
       # Alternatively, you can set Cygwin's bash as the shell to use:
       - name: Run cygwin bash shell
@@ -33,6 +33,8 @@ jobs:
           cd $GITHUB_WORKSPACE
           echo -- ls directory
           ls -la
+          p7zip ragel-6.10.tar.gz
+          ragel-6.10.tar
           echo -- msbuild the ALL_BUILD.vcxproj
           ls "/cygdrive/c/"
           echo -- x86
