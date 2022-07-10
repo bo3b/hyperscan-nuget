@@ -111,6 +111,7 @@ jobs:
           echo     msbuild the debug x86/Win32 with /MTd MinSizeRel
           echo -
           export _CL_=/MTd
+          cd $HYPERSCAN_ROOT/build_x32
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MTd
@@ -124,6 +125,7 @@ jobs:
           echo     msbuild the nondebug x86/Win32 with /MT MinSizeRel
           echo ------
           export _CL_=/MT
+          cd $HYPERSCAN_ROOT/build_x32
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MT
@@ -137,6 +139,7 @@ jobs:
           echo     msbuild the debug x64 with /MTd MinSizRel
           echo ------
           export _CL_=/MTd
+          cd $HYPERSCAN_ROOT/build_x64
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MTd
@@ -150,6 +153,7 @@ jobs:
           echo     msbuild the nondebug x64 with /MT MinSizeRel
           echo ------
           export _CL_=/MT
+          cd $HYPERSCAN_ROOT/build_x64
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MT
