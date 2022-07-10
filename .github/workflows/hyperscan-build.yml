@@ -2,9 +2,6 @@
 
 name: hyperscan-build
 
-env:
-  UPLOAD_RESULTS: $GITHUB_WORKSPACE\upload_results
-
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -43,6 +40,7 @@ jobs:
           echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
+          export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
           mkdir $UPLOAD_RESULTS
           export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
           export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
@@ -189,6 +187,6 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: hyperscan_v5.4.0
-          path: $UPLOAD_RESULTS
+          path: ${{ github.workspace}}\upload_results
         
  
