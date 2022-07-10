@@ -104,7 +104,7 @@ jobs:
           cd $HYPERSCAN_ROOT
           mkdir build_x64
           cd build_x64
-          CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=./boost_1_79_0/ -DCMAKE_BUILD_TYPE=MinSizeRel
+          CMake -G "Visual Studio 16 2019" -A x64 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel ../
           #############################################################
           echo -
           echo     msbuild the ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MTd
