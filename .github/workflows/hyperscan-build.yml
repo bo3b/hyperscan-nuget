@@ -71,9 +71,9 @@ jobs:
           export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
           export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
           export VS2017_COMMUNITY="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin"
-          export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin"
           export VS2019_ENTERPRISE="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin"
-          export VS2019_CMAKE="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin"
+          export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin"
+          export VS2019_CMAKE="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin"
           export CMAKE_GENERATE_2017="Visual Studio 15 2017"
           export CMAKE_GENERATE_2019="Visual Studio 16 2019"
           echo ------
