@@ -107,17 +107,17 @@ jobs:
           # MinSizeRel is the desired output, mininum size release
           # Debug versions will use _CL_=/MTd setting.
           #############################################################
-          # echo ------
-          # echo	This cmake builds the vcxproj and sln files for x32_MT and x32_MTd builds.
-          # echo	CMake -G "Visual Studio 16 2019"
-          # echo	-A Win32
-          # echo	-T v141
-          # echo	-DBOOST_ROOT=boost_1_79_0
-          # echo	-DCMAKE_BUILD_TYPE=MinSizeRel
-          # echo  -B build_x32
-          # echo ------
-          # cd $HYPERSCAN_ROOT
-          # CMake.exe -G "Visual Studio 16 2019" -A Win32 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x32
+          echo ------
+          echo	This cmake builds the vcxproj and sln files for x32_MT and x32_MTd builds.
+          echo	CMake -G "Visual Studio 16 2019"
+          echo	-A Win32
+          echo	-T v141
+          echo	-DBOOST_ROOT=boost_1_79_0
+          echo	-DCMAKE_BUILD_TYPE=MinSizeRel
+          echo  -B build_x32
+          echo ------
+          cd $HYPERSCAN_ROOT
+          CMake.exe -G "Visual Studio 16 2019" -A Win32 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x32
           #############################################################
           echo ------
           echo	  This cmake builds the vcxproj and sln files for x64_MT and x64_MTd builds.
