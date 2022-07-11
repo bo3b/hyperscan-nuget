@@ -92,6 +92,9 @@ jobs:
           # Copy all the .h header files to output.
           # We want both chimera headers and hyperscan headers
           #############################################################
+          echo $HYPERSCAN_ROOT
+          echo $HYPERSCAN_ROOT/chimera
+          ls -la $HYPERSCAN_ROOT/chimera
           cp $HYPERSCAN_ROOT/chimera/*.h $UPLOAD_RESULTS/include
           cp $HYPERSCAN_ROOT/src/*.h $UPLOAD_RESULTS/include
           echo ------
