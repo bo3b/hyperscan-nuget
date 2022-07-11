@@ -131,34 +131,44 @@ jobs:
           cd $HYPERSCAN_ROOT
           CMake.exe -G "Visual Studio 16 2019" -A x64 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x64
           #############################################################
-          # Must be hyperscan.sln to pick up chimera build.
-          # echo -
-          # echo	 msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MTd
-          # echo	 msbuild the debug x86/Win32 with /MTd, MinSizeRel, PlatformToolset=v141
-          # echo -
-          # export _CL_=/MTd
-          # cd $HYPERSCAN_ROOT/build_x32
-          # # MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
-          # echo -- Output results
-          # mkdir $UPLOAD_RESULTS/x32_MTd
-          # mv lib/* $UPLOAD_RESULTS/x32_MTd
-          # mv bin/* $UPLOAD_RESULTS/x32_MTd
-          # echo $UPLOAD_RESULTS/x32_MTd
-          # ls -la $UPLOAD_RESULTS/x32_MTd
+          # These are all 4 msbuild steps for x32/x64 Rel/Debug
+          # We force Toolset=v141 here
           #############################################################
-          # echo ------
-          # echo	 msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 _CL_=/MT
-          # echo	 msbuild the nondebug x86/Win32 with /MT, MinSizeRel, PlatformToolset=v141
-          # echo ------
-          # export _CL_=/MT
-          # cd $HYPERSCAN_ROOT/build_x32
-          # # MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
-          # echo -- Output results
-          # mkdir $UPLOAD_RESULTS/x32_MT
-          # mv lib/* $UPLOAD_RESULTS/x32_MT
-          # mv bin/* $UPLOAD_RESULTS/x32_MT
-          # echo $UPLOAD_RESULTS/x32_MT
-          # ls -la $UPLOAD_RESULTS/x32_MT
+          echo -
+          echo	   msbuild the ALL_BUILD.vcxproj
+          echo		-t:Rebuild
+          echo		-p:Configuration=MinSizeRel
+          echo		-p:Platform=Win32
+          echo		-p:PlatformToolset=v141
+          echo		_CL_=/MTd
+          echo -
+          export _CL_=/MTd
+          cd $HYPERSCAN_ROOT/build_x32
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
+          echo -- Output results
+          mkdir $UPLOAD_RESULTS/x32_MTd
+          mv lib/* $UPLOAD_RESULTS/x32_MTd
+          mv bin/* $UPLOAD_RESULTS/x32_MTd
+          echo $UPLOAD_RESULTS/x32_MTd
+          ls -la $UPLOAD_RESULTS/x32_MTd
+          #############################################################
+          echo ------
+          echo	   msbuild the ALL_BUILD.vcxproj
+          echo		-t:Rebuild
+          echo		-p:Configuration=MinSizeRel
+          echo		-p:Platform=Win32
+          echo		-p:PlatformToolset=v141
+          echo		_CL_=/MT
+          echo ------
+          export _CL_=/MT
+          cd $HYPERSCAN_ROOT/build_x32
+          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
+          echo -- Output results
+          mkdir $UPLOAD_RESULTS/x32_MT
+          mv lib/* $UPLOAD_RESULTS/x32_MT
+          mv bin/* $UPLOAD_RESULTS/x32_MT
+          echo $UPLOAD_RESULTS/x32_MT
+          ls -la $UPLOAD_RESULTS/x32_MT
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -178,19 +188,23 @@ jobs:
           echo $UPLOAD_RESULTS/x64_MTd
           ls -la $UPLOAD_RESULTS/x64_MTd
           #############################################################
-          # echo ------
-          # echo	 msbuild the hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64
-          # echo	 msbuild the nondebug x64 with /MT, MinSizeRel, PlatformToolset=v141
-          # echo ------
-          # export _CL_=/MT
-          # cd $HYPERSCAN_ROOT/build_x64
-          # # MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -p:PlatformToolset=v141 -m
-          # echo -- Output results
-          # mkdir $UPLOAD_RESULTS/x64_MT
-          # mv lib/* $UPLOAD_RESULTS/x64_MT
-          # mv bin/* $UPLOAD_RESULTS/x64_MT
-          # echo $UPLOAD_RESULTS/x64_MT
-          # ls -la $UPLOAD_RESULTS/x64_MT
+          echo ------
+          echo	   msbuild the ALL_BUILD.vcxproj
+          echo		-t:Rebuild
+          echo		-p:Configuration=MinSizeRel
+          echo		-p:Platform=x64
+          echo		-p:PlatformToolset=v141
+          echo		_CL_=/MT
+          echo ------
+          export _CL_=/MT
+          cd $HYPERSCAN_ROOT/build_x64
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -p:PlatformToolset=v141 -m
+          echo -- Output results
+          mkdir $UPLOAD_RESULTS/x64_MT
+          mv lib/* $UPLOAD_RESULTS/x64_MT
+          mv bin/* $UPLOAD_RESULTS/x64_MT
+          echo $UPLOAD_RESULTS/x64_MT
+          ls -la $UPLOAD_RESULTS/x64_MT
           #############################################################
           echo -
           echo -- Final Results
