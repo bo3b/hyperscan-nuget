@@ -23,15 +23,44 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
-
+          
+      # Setup the dependencies for building from cmd shell
+      # This part is simpler than using bash
+      - name: Unpack/unzip to set up build
+        shell: cmd
+        run: |
+          echo -- pwd working dir --
+          pwd
+          echo -- env.GITHUB_WORKSPACE --
+          echo %GITHUB_WORKSPACE%
+          echo -- mkdir upload_results --
+          mkdir $GITHUB_WORKSPACE\upload_results
+          echo -- show dir --
+          dir
+          echo -- 7 unzip ragel --
+          7z x ragel-6.10.tar.gz
+          7z x ragel-6.10.tar
+          7z x pcre-8.45.zip 
+          echo -- Force rename to pcre-8.41 on move otherwise build will error out
+          move pcre-8.45 hyperscan\pcre-8.41
+          7z x sqlite-amalgamation-3390000.zip
+          move sqlite-amalgamation-3390000 hyperscan\sqlite3
+          7z x -ohyperscan/ boost_1_79_0.7z
+          echo -- show dir --
+          dir
+          echo -- show ragel dir --
+          dir ragel-6.10
+          echo -- show hyperscan dir --
+          dir hyperscan
+          
       - name: Install Cygwin Action
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: make gcc-core p7zip
+          packages: make gcc-core
       
       # Alternatively, you can set Cygwin's bash as the shell to use:
-      - name: Run cygwin bash shell
+      - name: Run cygwin bash shell to build
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           # This is a real bash script!
@@ -41,46 +70,14 @@ jobs:
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
-          mkdir $UPLOAD_RESULTS
           export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
           export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/"
-          #############################################################
-          echo -
-          echo -- show root items --
-          echo -
-          ls -la
-          echo -
-          echo -- 7 unzip ragel --
-          echo -
-          p7zip x ragel-6.10.tar.gz
-          p7zip x ragel-6.10.tar
-          echo -
-          echo -- show ragel dir --
-          echo -
-          ls -la ragel-6.10/
-          p7zip x pcre-8.45.zip 
-          echo -
-          echo -- Force rename to pcre-8.41 on move otherwise build will error out
-          echo -
-          mv pcre-8.45 hyperscan/pcre-8.41
-          p7zip x sqlite-amalgamation-3390000.zip
-          mv sqlite-amalgamation-3390000 hyperscan/sqlite3
-          p7zip x -ohyperscan/ boost_1_79_0.7z
-          echo -
-          echo -- show hyperscan dir --
-          echo -
-          ls -la hyperscan/
           #############################################################
           # Only VS2019 Enterprise is available on the GitHub runner.
           echo -
           echo -- Add PATH:"$VS2019_MSBUILD"
           echo -
           export PATH=$PATH:"$VS2019_MSBUILD"
-          echo -- ls directory
-          ls -la
-          cd $HYPERSCAN_ROOT
-          pwd
-          ls -la
           #############################################################
           echo -
           echo -- cd ragel
