@@ -124,7 +124,7 @@ jobs:
           #############################################################
           echo ------
           echo	This cmake builds the vcxproj and sln files for x32_MT and x32_MTd builds.
-          echo	CMake -G "Visual Studio 16 2019"
+          echo	CMake -G "Visual Studio 15 2017"
           echo	-A Win32
           echo	-T v141
           echo	-DBOOST_ROOT=boost_1_79_0
@@ -132,11 +132,11 @@ jobs:
           echo  -B build_x32
           echo ------
           cd $HYPERSCAN_ROOT
-          CMake.exe -G "Visual Studio 16 2019" -A Win32 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x32
+          CMake.exe -G "Visual Studio 15 2017" -A Win32 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x32
           #############################################################
           echo ------
           echo	  This cmake builds the vcxproj and sln files for x64_MT and x64_MTd builds.
-          echo	  CMake -G "Visual Studio 16 2019"
+          echo	  CMake -G "Visual Studio 15 2017"
           echo	  -A x64
           echo	  -T v141
           echo	  -DBOOST_ROOT=boost_1_79_0
@@ -144,7 +144,7 @@ jobs:
           echo	  -B build_x64
           echo ------
           cd $HYPERSCAN_ROOT
-          CMake.exe -G "Visual Studio 16 2019" -A x64 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x64
+          CMake.exe -G "Visual Studio 15 2017" -A x64 -T v141 -DBOOST_ROOT=boost_1_79_0 -DCMAKE_BUILD_TYPE=MinSizeRel -B build_x64
           #############################################################
           # These are all 4 msbuild steps for x32/x64 Rel/Debug
           # We force Toolset=v141 here
