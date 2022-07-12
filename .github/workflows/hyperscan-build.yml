@@ -102,9 +102,9 @@ jobs:
           echo $HYPERSCAN_ROOT/chimera
           echo $UPLOAD_RESULTS
           echo $UPLOAD_RESULTS/include
-          ls -la $HYPERSCAN_ROOT/chimera
-          cp $HYPERSCAN_ROOT/chimera/ch_common.h $UPLOAD_RESULTS/include
+          cp chimera/*.h $UPLOAD_RESULTS/include
           cp src/*.h $UPLOAD_RESULTS/include
+          ls -la $UPLOAD_RESULTS/include
           #############################################################
           echo -- cd ragel
           cd $GITHUB_WORKSPACE/ragel-6.10
