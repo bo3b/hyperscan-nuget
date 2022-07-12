@@ -92,17 +92,19 @@ jobs:
           # Copy all the .h header files to output.
           # We want both chimera headers and hyperscan headers
           #############################################################
-          echo $HYPERSCAN_ROOT
-          echo $HYPERSCAN_ROOT/chimera
-          ls -la $HYPERSCAN_ROOT/chimera
-          cp $HYPERSCAN_ROOT/chimera/*.h $UPLOAD_RESULTS/include
-          cp $HYPERSCAN_ROOT/src/*.h $UPLOAD_RESULTS/include
           echo ------
           echo -- ls hyperscan directory
           echo ------
           cd $HYPERSCAN_ROOT
           pwd
           ls -la
+          echo $HYPERSCAN_ROOT
+          echo $HYPERSCAN_ROOT/chimera
+          echo $UPLOAD_RESULTS
+          echo $UPLOAD_RESULTS/include
+          ls -la $HYPERSCAN_ROOT/chimera
+          cp $HYPERSCAN_ROOT/chimera/ch_common.h $UPLOAD_RESULTS/include
+          cp src/*.h $UPLOAD_RESULTS/include
           #############################################################
           echo -- cd ragel
           cd $GITHUB_WORKSPACE/ragel-6.10
