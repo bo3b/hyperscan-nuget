@@ -159,7 +159,7 @@ jobs:
           echo -
           export _CL_=/MTd
           cd $HYPERSCAN_ROOT/build_x32
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MTd
           mv lib/* $UPLOAD_RESULTS/x32_MTd
@@ -177,7 +177,7 @@ jobs:
           echo ------
           export _CL_=/MT
           cd $HYPERSCAN_ROOT/build_x32
-          MSBuild.exe hyperscan.sln -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
+          MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MT
           mv lib/* $UPLOAD_RESULTS/x32_MT
