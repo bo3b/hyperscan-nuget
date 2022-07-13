@@ -262,8 +262,8 @@ jobs:
         
 # Lastly, let's publish the result on nuget.org
 
-      - name: Publish hyperscan.redist.win.5.4.0-rc.nupkg on nuget.org
-        run: |
-          cd ${{ github.workspace}}\upload_results
-          nuget push hyperscan.redist.win.5.4.0-rc.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_DOT_ORG_API}}
+#      - name: Publish hyperscan.redist.win.5.4.0-rc.nupkg on nuget.org
+#        run: |
+#          cd ${{ github.workspace}}\upload_results
+#          nuget push hyperscan.redist.win.5.4.0-rc.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_DOT_ORG_API}}
 
