@@ -228,6 +228,16 @@ jobs:
           cd
           ls -la -R $UPLOAD_RESULTS
           
+# The generated output in upload_results should be complete, so let's
+# now do the final step of packaging it as a nuget nupkg.
+
+      - name: Fetch NuGet.exe for use with actions
+        uses: NuGet/setup-nuget@v1.0.6
+      - name: Create Nuget nupkg for nuget.org
+        run: |
+          cd ${{ github.workspace}}\upload_results
+          nuget pack hyperscan.redist.win.nuspec
+
 # Now we can upload the output_libs artifacts as the final build.
 # Versioning?
           
@@ -237,4 +247,3 @@ jobs:
           name: hyperscan_v5.4.0
           path: ${{ github.workspace}}\upload_results
         
- 
