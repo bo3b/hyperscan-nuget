@@ -82,12 +82,10 @@ jobs:
           which msbuild.exe
           which cmake.exe
           echo ------
-          echo -- mkdir upload_results
-          echo -- copy .h includes
+          echo -- upload_results should already exist
           echo ------
-          mkdir upload_results
-          mkdir upload_results/include
           export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
+          echo $UPLOAD_RESULTS
           #############################################################
           # Copy all the .h header files to output.
           # We want both chimera headers and hyperscan headers
@@ -98,9 +96,12 @@ jobs:
           cd $HYPERSCAN_ROOT
           pwd
           ls -la
+          echo ------
+          echo -- copy .h includes
+          echo ------
           echo $HYPERSCAN_ROOT
           echo $HYPERSCAN_ROOT/chimera
-          echo $UPLOAD_RESULTS
+          mkdir $UPLOAD_RESULTS/include
           echo $UPLOAD_RESULTS/include
           cp chimera/*.h $UPLOAD_RESULTS/include
           cp src/*.h $UPLOAD_RESULTS/include
