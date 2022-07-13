@@ -36,14 +36,71 @@ jobs:
           echo -- cd GITHUB_WORKSPACE
           echo $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
-          echo -- ls directory
+          export HYPERSCAN_ROOT=$GITHUB_WORKSPACE/hyperscan
+          export VS2017_COMMUNITY="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin"
+          export VS2019_ENTERPRISE="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin"
+          export VS2019_MSBUILD="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin"
+          export VS2019_CMAKE="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin"
+          export CMAKE_GENERATE_2017="Visual Studio 15 2017"
+          export CMAKE_GENERATE_2019="Visual Studio 16 2019"
+          echo ------
+          echo -- Add PATH:$VS2019_MSBUILD:$VS2019_CMAKE
+          export PATH=$PATH:$VS2019_MSBUILD:$VS2019_CMAKE
+          echo ------
+          echo	which msbuild and cmake
+          echo ------
+          which msbuild.exe
+          which cmake.exe
+          echo ------
+          echo -- upload_results should already exist
+          echo -- Set up nupkg and output directories.
+          echo ------
+          export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
+          echo $UPLOAD_RESULTS
+          mkdir $UPLOAD_RESULTS/include
+          echo $UPLOAD_RESULTS/include
+          mkdir $UPLOAD_RESULTS/lib
+          echo $UPLOAD_RESULTS/lib
+          mkdir $UPLOAD_RESULTS/util
+          echo $UPLOAD_RESULTS/util
+          mkdir $UPLOAD_RESULTS/unit
+          echo $UPLOAD_RESULTS/unit
+          ls -la -R $UPLOAD_RESULTS
+          #############################################################
+          # Copy all the .h header files to output.
+          # We want both chimera headers and hyperscan headers
+          #############################################################
+          echo ------
+          echo -- ls hyperscan directory
+          echo ------
+          cd $HYPERSCAN_ROOT
+          pwd
           ls -la
+          echo ------
+          echo -- copy .h includes
+          echo ------
+          echo $HYPERSCAN_ROOT
+          echo $HYPERSCAN_ROOT/chimera
+          cp chimera/*.h $UPLOAD_RESULTS/include
+          cp src/*.h $UPLOAD_RESULTS/include
+          ls -la $UPLOAD_RESULTS/include
+          #############################################################
+          echo -- Output results
+          mkdir $UPLOAD_RESULTS/lib/x32_MTd
+#          mv lib/* $UPLOAD_RESULTS/lib/x32_MTd
+          mkdir $UPLOAD_RESULTS/unit/x32_MTd
+ #         mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
+          mkdir $UPLOAD_RESULTS/util/x32_MTd
+  #        mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
+          ls -la -R $UPLOAD_RESULTS
+          ls -la -R $UPLOAD_RESULTS/*/x32_MTd
+          #############################################################
           echo -- output_results
           echo $UPLOAD_RESULTS
           echo ${{ UPLOAD_RESULTS }}
           # Unpack 7zip properly?
-          p7zip x ragel-6.10.tar.gz
-          p7zip x ragel-6.10.tar
+#          p7zip x ragel-6.10.tar.gz
+ #         p7zip x ragel-6.10.tar
           echo -- msbuild the ALL_BUILD.vcxproj
           ls "/cygdrive/c/"
           echo -- x86
