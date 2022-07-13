@@ -16,9 +16,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-2019
 
-#    env:
-#      UPLOAD_RESULTS: ${{ github.workspace }}\upload_results
-  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
@@ -27,17 +24,12 @@ jobs:
 
       - name: Checkout w/ submodules and autocrlf
         uses: actions/checkout@v3
-#        with:
-#          submodules: true
-
       - name: Install Cygwin Action
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
           packages: make gcc-core
       
-# Alternatively, you can set Cygwin's bash as the shell to use:
-
       - name: Run cygwin bash shell
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
@@ -96,11 +88,11 @@ jobs:
           #############################################################
           echo -- Output results
           mkdir $UPLOAD_RESULTS/lib/x32_MTd
-#          mv lib/* $UPLOAD_RESULTS/lib/x32_MTd
+          #          mv lib/* $UPLOAD_RESULTS/lib/x32_MTd
           mkdir $UPLOAD_RESULTS/unit/x32_MTd
- #         mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
+          #          mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
           mkdir $UPLOAD_RESULTS/util/x32_MTd
-  #        mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
+          #          mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
           ls -la -R $UPLOAD_RESULTS
           ls -la -R $UPLOAD_RESULTS/*/x32_MTd
           #############################################################
@@ -108,8 +100,8 @@ jobs:
           echo $UPLOAD_RESULTS
           echo ${{ UPLOAD_RESULTS }}
           # Unpack 7zip properly?
-#          p7zip x ragel-6.10.tar.gz
- #         p7zip x ragel-6.10.tar
+          #          p7zip x ragel-6.10.tar.gz
+          #         p7zip x ragel-6.10.tar
           echo -- msbuild the ALL_BUILD.vcxproj
           ls "/cygdrive/c/"
           echo -- x86
