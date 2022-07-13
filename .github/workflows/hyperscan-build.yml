@@ -83,9 +83,19 @@ jobs:
           which cmake.exe
           echo ------
           echo -- upload_results should already exist
+          echo -- Set up nupkg and output directories.
           echo ------
           export UPLOAD_RESULTS=$GITHUB_WORKSPACE/upload_results
           echo $UPLOAD_RESULTS
+          mkdir $UPLOAD_RESULTS/include
+          echo $UPLOAD_RESULTS/include
+          mkdir $UPLOAD_RESULTS/lib
+          echo $UPLOAD_RESULTS/lib
+          mkdir $UPLOAD_RESULTS/util
+          echo $UPLOAD_RESULTS/util
+          mkdir $UPLOAD_RESULTS/unit
+          echo $UPLOAD_RESULTS/unit
+          ls -la -R $UPLOAD_RESULTS
           #############################################################
           # Copy all the .h header files to output.
           # We want both chimera headers and hyperscan headers
@@ -101,8 +111,6 @@ jobs:
           echo ------
           echo $HYPERSCAN_ROOT
           echo $HYPERSCAN_ROOT/chimera
-          mkdir $UPLOAD_RESULTS/include
-          echo $UPLOAD_RESULTS/include
           cp chimera/*.h $UPLOAD_RESULTS/include
           cp src/*.h $UPLOAD_RESULTS/include
           ls -la $UPLOAD_RESULTS/include
@@ -162,11 +170,13 @@ jobs:
           cd $HYPERSCAN_ROOT/build_x32
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
           echo -- Output results
-          mkdir $UPLOAD_RESULTS/x32_MTd
-          mv lib/* $UPLOAD_RESULTS/x32_MTd
-          mv bin/* $UPLOAD_RESULTS/x32_MTd
-          echo $UPLOAD_RESULTS/x32_MTd
-          ls -la $UPLOAD_RESULTS/x32_MTd
+          mkdir $UPLOAD_RESULTS/lib/x32_MTd
+          mv lib/* $UPLOAD_RESULTS/lib/x32_MTd
+          mkdir $UPLOAD_RESULTS/unit/x32_MTd
+          mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
+          mkdir $UPLOAD_RESULTS/util/x32_MTd
+          mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
+          ls -la -R $UPLOAD_RESULTS/*/x32_MTd
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -182,9 +192,11 @@ jobs:
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x32_MT
           mv lib/* $UPLOAD_RESULTS/x32_MT
-          mv bin/* $UPLOAD_RESULTS/x32_MT
-          echo $UPLOAD_RESULTS/x32_MT
-          ls -la $UPLOAD_RESULTS/x32_MT
+          mkdir $UPLOAD_RESULTS/unit/x32_MT
+          mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MT
+          mkdir $UPLOAD_RESULTS/util/x32_MT
+          mv bin/*.exe $UPLOAD_RESULTS/util/x32_MT
+          ls -la -R $UPLOAD_RESULTS/*/x32_MT
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -200,9 +212,11 @@ jobs:
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MTd
           mv lib/* $UPLOAD_RESULTS/x64_MTd
-          mv bin/* $UPLOAD_RESULTS/x64_MTd
-          echo $UPLOAD_RESULTS/x64_MTd
-          ls -la $UPLOAD_RESULTS/x64_MTd
+          mkdir $UPLOAD_RESULTS/unit/x64_MTd
+          mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MTd
+          mkdir $UPLOAD_RESULTS/util/x64_MTd
+          mv bin/*.exe $UPLOAD_RESULTS/util/x64_MTd
+          ls -la -R $UPLOAD_RESULTS/*/x64_MTd
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -218,9 +232,11 @@ jobs:
           echo -- Output results
           mkdir $UPLOAD_RESULTS/x64_MT
           mv lib/* $UPLOAD_RESULTS/x64_MT
-          mv bin/* $UPLOAD_RESULTS/x64_MT
-          echo $UPLOAD_RESULTS/x64_MT
-          ls -la $UPLOAD_RESULTS/x64_MT
+          mkdir $UPLOAD_RESULTS/unit/x64_MT
+          mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MT
+          mkdir $UPLOAD_RESULTS/util/x64_MT
+          mv bin/*.exe $UPLOAD_RESULTS/util/x64_MT
+          ls -la -R $UPLOAD_RESULTS/*/x64_MT
           #############################################################
           echo -
           echo -- Final Results
