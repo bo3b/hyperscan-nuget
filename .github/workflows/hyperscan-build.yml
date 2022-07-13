@@ -190,8 +190,8 @@ jobs:
           cd $HYPERSCAN_ROOT/build_x32
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=Win32 -p:PlatformToolset=v141 -m
           echo -- Output results
-          mkdir $UPLOAD_RESULTS/x32_MT
-          mv lib/* $UPLOAD_RESULTS/x32_MT
+          mkdir $UPLOAD_RESULTS/lib/x32_MT
+          mv lib/* $UPLOAD_RESULTS/lib/x32_MT
           mkdir $UPLOAD_RESULTS/unit/x32_MT
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MT
           mkdir $UPLOAD_RESULTS/util/x32_MT
@@ -210,8 +210,8 @@ jobs:
           cd $HYPERSCAN_ROOT/build_x64
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -p:PlatformToolset=v141 -m
           echo -- Output results
-          mkdir $UPLOAD_RESULTS/x64_MTd
-          mv lib/* $UPLOAD_RESULTS/x64_MTd
+          mkdir $UPLOAD_RESULTS/lib/x64_MTd
+          mv lib/* $UPLOAD_RESULTS/lib/x64_MTd
           mkdir $UPLOAD_RESULTS/unit/x64_MTd
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MTd
           mkdir $UPLOAD_RESULTS/util/x64_MTd
@@ -230,8 +230,8 @@ jobs:
           cd $HYPERSCAN_ROOT/build_x64
           MSBuild.exe ALL_BUILD.vcxproj -t:Rebuild -p:Configuration=MinSizeRel -p:Platform=x64 -p:PlatformToolset=v141 -m
           echo -- Output results
-          mkdir $UPLOAD_RESULTS/x64_MT
-          mv lib/* $UPLOAD_RESULTS/x64_MT
+          mkdir $UPLOAD_RESULTS/lib/x64_MT
+          mv lib/* $UPLOAD_RESULTS/lib/x64_MT
           mkdir $UPLOAD_RESULTS/unit/x64_MT
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MT
           mkdir $UPLOAD_RESULTS/util/x64_MT
