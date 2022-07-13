@@ -1,18 +1,27 @@
-hyperscan-nuget
+# hyperscan-nuget
+Builds Intel/hyperscan to create Nuget package.  https://github.com/intel/hyperscan
 
-Built on Github using Github Actions.   https://github.com/intel/hyperscan
+- The basic build environment here is Cygwin, required for several components.  
+- Cmake from VS2019 is required for the "Visual Studio 16 2019" -G target, cygwin cmake won't work.
+- msbuild is required for the ending VS2019 build.  
+- The visual studio toolset is set to v141.
+
+
+This project just packages the Intel/Hyperscan into a nuget package for convenience.
+
+The build based on Github Action hyperscan-build.yml is setup to use the windows-2019 runner.
+That runner includes _only_ VS2019, so we target that version for the CMake -G.  However, 
+the msbuild output build uses the v141 toolset as the default installed, not v142.
+
+The _upload_results_ directory is packaged as a nuget nupkg using the included hyperscan.redist.win.nuspec
+specification.  This is set up to be automatically included as include/lib in a project when the nuget
+package is installed.
+
+----------------
+
+Developer information from Intel: https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-hyperscan-on-windows.html
 
 Builds intel/hyperscan from a git submodule, to create Nuget package.  https://github.com/intel/hyperscan
-
-Developer information for hyperscan from Intel: https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-hyperscan-on-windows.html
-
-Based on those instructions, the basic build environment here is Cygwin, 
-required for several components. Cmake from VS2019 is required to produce 
-a VS2019 sln file, cygwin cmake won't work because it does not have the
-"Visual Studio 16 2019" -G target.
-msbuild is required for the ending VS2019 build.
-The visual studio toolset is set to v141.
-
 
 This project just packages the Intel/Hyperscan into a nuget package for convenience.
 There are no windows binaries or other easy ways to use this package on windows, and
