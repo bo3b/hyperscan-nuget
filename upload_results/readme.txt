@@ -4,18 +4,21 @@ Built on Github using Github Actions.   https://github.com/intel/hyperscan
 
 Builds intel/hyperscan from a git submodule, to create Nuget package.  https://github.com/intel/hyperscan
 
-The basic build environment here is Cygwin, required for several components.
-Cmake from VS2019 is required to produce a VS2019 sln file, cygwin cmake won't work.
+Developer information for hyperscan from Intel: https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-hyperscan-on-windows.html
+
+Based on those instructions, the basic build environment here is Cygwin, 
+required for several components. Cmake from VS2019 is required to produce 
+a VS2019 sln file, cygwin cmake won't work because it does not have the
+"Visual Studio 16 2019" -G target.
 msbuild is required for the ending VS2019 build.
 The visual studio toolset is set to v141.
-
-Developer information from Intel: https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-hyperscan-on-windows.html
 
 
 This project just packages the Intel/Hyperscan into a nuget package for convenience.
 There are no windows binaries or other easy ways to use this package on windows, and
-the build process here is completely bizarre, so this encapsulates all that into 
-a simple Nuget download.
+the build process for hyperscan is completely bizarre, so this encapsulates all that into 
+a Github Action which generates a simple Nuget download.
+
 
 Output libs are built for MinSizeRel only, with 4 variants for different platform
 and threading models.
@@ -23,9 +26,9 @@ and threading models.
 	echo	   msbuild the ALL_BUILD.vcxproj
 	echo		-t:Rebuild
 	echo		-p:Configuration=MinSizeRel
-	echo		-p:Platform=x64 and Win32
+	echo		-p:Platform=x64 then Win32
 	echo		-p:PlatformToolset=v141
-	echo		_CL_=/MTd  and _CL_=/MT
+	echo		_CL_=/MTd then _CL_=/MT
 
 - Output directory structure -
 
