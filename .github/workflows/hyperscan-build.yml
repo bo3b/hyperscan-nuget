@@ -176,6 +176,7 @@ jobs:
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
           mkdir $UPLOAD_RESULTS/util/x32_MTd
           mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
+          ls -la -R $UPLOAD_RESULTS
           ls -la -R $UPLOAD_RESULTS/*/x32_MTd
           #############################################################
           echo ------
