@@ -36,7 +36,8 @@ jobs:
           platform: x64
           packages: make gcc-core
       
-      # Alternatively, you can set Cygwin's bash as the shell to use:
+# Alternatively, you can set Cygwin's bash as the shell to use:
+
       - name: Run cygwin bash shell
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
