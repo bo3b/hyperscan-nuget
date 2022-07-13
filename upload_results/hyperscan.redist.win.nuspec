@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+	<metadata>
+	<id>hyperscan.redist.win</id>
+	<version>5.4.0-rc</version>
+	<authors>Intel, bo3b</authors>
+	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<license type="expression">BSD-3-Clause</license>
+	<!-- <icon>icon.png</icon> -->
+	<projectUrl>https://github.com/bo3b/hyperscan-nuget/</projectUrl>
+	<description>Intel Hyperscan regex libraries, built for Windows</description>
+	<releaseNotes>Initial test release of built libs and include.</releaseNotes>
+	<copyright>$copyright$</copyright>
+	<tags>regex</tags>
+	</metadata>
+	<files>
+		<file src="hyperscan.redist.win.targets" target="build" />
+		<file src="include\*" target="include" />
+		<file src="lib\**\*.lib" target="lib" />
+		<file src="readme.txt" />
+	</files>
+</package>
