@@ -98,7 +98,6 @@ jobs:
           #############################################################
           echo -- output_results
           echo $UPLOAD_RESULTS
-          #echo ${{ UPLOAD_RESULTS }}
           # Unpack 7zip properly?
           #          p7zip x ragel-6.10.tar.gz
           #         p7zip x ragel-6.10.tar
