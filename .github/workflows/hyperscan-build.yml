@@ -176,8 +176,6 @@ jobs:
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MTd
           mkdir $UPLOAD_RESULTS/util/x32_MTd
           mv bin/*.exe $UPLOAD_RESULTS/util/x32_MTd
-          ls -la -R $UPLOAD_RESULTS
-          ls -la -R $UPLOAD_RESULTS/*/x32_MTd
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -197,7 +195,6 @@ jobs:
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x32_MT
           mkdir $UPLOAD_RESULTS/util/x32_MT
           mv bin/*.exe $UPLOAD_RESULTS/util/x32_MT
-          ls -la -R $UPLOAD_RESULTS/*/x32_MT
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -217,7 +214,6 @@ jobs:
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MTd
           mkdir $UPLOAD_RESULTS/util/x64_MTd
           mv bin/*.exe $UPLOAD_RESULTS/util/x64_MTd
-          ls -la -R $UPLOAD_RESULTS/*/x64_MTd
           #############################################################
           echo ------
           echo	   msbuild the ALL_BUILD.vcxproj
@@ -237,7 +233,6 @@ jobs:
           mv bin/unit*.exe $UPLOAD_RESULTS/unit/x64_MT
           mkdir $UPLOAD_RESULTS/util/x64_MT
           mv bin/*.exe $UPLOAD_RESULTS/util/x64_MT
-          ls -la -R $UPLOAD_RESULTS/*/x64_MT
           #############################################################
           echo -
           echo -- Final Results
