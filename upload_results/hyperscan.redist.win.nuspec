@@ -18,5 +18,7 @@
 		<file src="include\*" target="include" />
 		<file src="lib\**\*.lib" target="lib" />
 		<file src="readme.md" />
+		<file src="unit\**" target="unit" />
+		<file src="util\**" target="util" />
 	</files>
 </package>
