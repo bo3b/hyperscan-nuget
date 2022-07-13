@@ -5,16 +5,6 @@
 			<AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ClCompile>
 	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<Link>
-			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x32_MTd\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<Link>
-			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x64_MTd\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-		</Link>
-	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
 		<Link>
 			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x32_MT\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -23,6 +13,16 @@
 	<ItemDefinitionGroup Condition="'$(Platform)'=='x64'">
 		<Link>
 			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x64_MT\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+		<Link>
+			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x32_MTd\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<Link>
+			<AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\lib\x64_MTd\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup />
